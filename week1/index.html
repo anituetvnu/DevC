@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>HTML/CSS basic</title>
+  </head>
+  <body>
+    <h1>Currency Convertor</h1>
+    <select name="" id="currencies">
+      <option value="EUR">EURO</option>
+      <option value="USD">USD</option>
+      <option value="JPY">YEN</option>
+    </select>
+    <input type="text" name="" id="input-value" />
+    <button onclick="handleConvertWithApi()">Convert Currency</button>
+    <div>
+      <span id="result"></span>
+    </div>
+    <script>
+      rates = {
+        USD_VND: 23.123,
+        EUR_VND: 27.456,
+        JPY_VND: 218.12,
+      };
+      function handleConvert() {
+        currency = document.getElementById("currencies").value;
+        result =
+          document.getElementById("input-value").value *
+          rates[`${currency}_VND`];
+        document.getElementById(
+          "result"
+        ).innerHTML = `<h3>Result is: ${result.toFixed(2)}</h3>`;
+      }
+      function handleConvertWithApi() {
+        currency = document.getElementById("currencies").value;
+
+        var xhr = new XMLHttpRequest();
+        xhr.open(
+          "GET",
+          `https://free.currconv.com/api/v7/convert?q=${currency}_VND&compact=ultra&apiKey=e0e3775f24e10cfeb461`
+        );
+
+        xhr.onload = function () {
+          if (xhr.status === 200) {
+            rate = JSON.parse(xhr.responseText);
+            console.log(rate);
+            result =
+              document.getElementById("input-value").value *
+              rate[`${currency}_VND`];
+            document.getElementById(
+              "result"
+            ).innerHTML = `<h3>Result is: ${result.toFixed(2)} VND</h3>`;
+          }
+        };
+
+        xhr.send();
+      }
+    </script>
+  </body>
+</html>

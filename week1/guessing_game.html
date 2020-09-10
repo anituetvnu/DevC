@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Guessing Game</title>
+  </head>
+  <body>
+    <h1>Guessing Game</h1>
+    <div id="message"></div>
+    <input type="number" id="number" />
+    <button id="guessButton">Guess</button>
+    <div id="guessCounter"></div>
+    <div id="historyGuess">History guess:</div>
+    <script>
+      let button = document.getElementById("guessButton");
+      let guess_counter = 10;
+      let random_number = Math.floor(Math.random() * 100);
+      console.log(random_number);
+      button.addEventListener("click", function () {
+        // What happens when you click the button?
+        // Hint: Perhaps what happens next in Milestone 4.
+        guess_counter--;
+        let message = document.getElementById("message");
+        let userGuess = document.getElementById("number").value;
+        if (guess_counter <= 0) {
+          document.getElementById("guessButton").disabled = true;
+          message.innerHTML = `You lose. The number is ${random_number}.`;
+          message.style.backgroundColor = "red";
+        } else if (userGuess < random_number) {
+          message.innerHTML = "Your guess was too low, guess higher";
+          message.style.backgroundColor = "red";
+        } else if (userGuess > random_number) {
+          message.innerHTML = "Your guess was too high, guess lower";
+          message.style.backgroundColor = "red";
+        } else if (userGuess == random_number) {
+          message.innerHTML = "Yay YOU ARE THE LORD OF THE GUESS";
+          message.style.backgroundColor = "green";
+        }
+        document.getElementById(
+          "guessCounter"
+        ).innerHTML = `Count left: ${guess_counter}`;
+        document.getElementById("historyGuess").innerHTML += `${userGuess},`;
+        console.log(userGuess);
+      });
+    </script>
+  </body>
+</html>
