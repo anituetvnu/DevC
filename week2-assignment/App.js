@@ -6,9 +6,7 @@ import {
   Text,
   View,
   Image,
-  Button,
   Dimensions,
-  TextComponent,
   TouchableOpacity,
 } from "react-native";
 import { Feather, FontAwesome, AntDesign, Ionicons } from "@expo/vector-icons";
@@ -57,19 +55,11 @@ export default function App() {
   return (
     <ScrollView style={styles.container}>
       <View style={styles.navigate}>
-        <TouchableOpacity>
-          <AntDesign
-            name="arrowleft"
-            style={styles.backIcon}
-            onPress={() => alert("back")}
-          />
+        <TouchableOpacity onPress={() => alert("back")}>
+          <AntDesign name="arrowleft" style={styles.backIcon} />
         </TouchableOpacity>
-        <TouchableOpacity>
-          <Feather
-            name="menu"
-            style={styles.menuIcon}
-            onPress={() => alert("menu")}
-          />
+        <TouchableOpacity onPress={() => alert("menu")}>
+          <Feather name="menu" style={styles.menuIcon} />
         </TouchableOpacity>
       </View>
 
@@ -81,14 +71,12 @@ export default function App() {
           <Text style={styles.userName}>ABCDEFGH</Text>
           <Text style={styles.userJob}>ABCDEFGHABCDEFGH</Text>
           <View style={styles.followAndSend}>
-            <Text style={styles.follow} onPress={() => alert("follow")}>
-              Follow
-            </Text>
-            <Ionicons
-              name="md-send"
-              style={styles.sendMessage}
-              onPress={() => alert("send message")}
-            />
+            <TouchableOpacity onPress={() => alert("follow")}>
+              <Text style={styles.follow}>Follow</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => alert("send message")}>
+              <Ionicons name="md-send" style={styles.sendMessage} />
+            </TouchableOpacity>
           </View>
         </View>
       </View>
@@ -107,22 +95,12 @@ export default function App() {
       <View style={styles.photos}>
         <View style={styles.column}>
           {imgData.slice(0, centerImgData).map((item) => {
-            return (
-              <Image
-                source={item.imgSource}
-                style={((height = item.height), styles.image)}
-              />
-            );
+            return <Image source={item.imgSource} style={styles.image} />;
           })}
         </View>
         <View style={styles.column}>
           {imgData.slice(centerImgData).map((item) => {
-            return (
-              <Image
-                source={item.imgSource}
-                style={((height = item.height), styles.image)}
-              />
-            );
+            return <Image source={item.imgSource} style={styles.image} />;
           })}
         </View>
       </View>
@@ -219,6 +197,7 @@ const styles = StyleSheet.create({
   image: {
     width: deviceWidth / 2 - 20,
     // height: 251,
+    height: deviceWidth / 2,
     resizeMode: "stretch",
     borderRadius: 20,
     padding: 0,
